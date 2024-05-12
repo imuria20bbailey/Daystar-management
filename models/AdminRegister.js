@@ -16,7 +16,12 @@ const adminstratorSchema = new Schema({
         trim: true
     },
 
-    telephoneNumber:{
+    password:{
+        type: String,
+        trim: true
+    },
+    
+    phoneNumber:{
         type: String,
         trim: true
     }

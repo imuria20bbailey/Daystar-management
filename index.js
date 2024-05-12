@@ -16,12 +16,14 @@ require('dotenv').config();
 const Adminstrator = require('./models/AdminRegister');
 
 
+
 const port = process.env.port || 3000  // listening to port
 
 
 //importing routes
 const adminstratorRoutes = require('./routes/adminstrationRoutes');
 const adminLoginRoutes = require('./routes/adminLoginRoutes');
+const babyRegisterRoutes = require('./routes/babyRegisterRoutes')
 
 //instantiations
 const app = express();
@@ -64,7 +66,8 @@ passport.deserializeUser(Adminstrator.deserializeUser()); //when you log out, th
 
 //use imported routes
 app.use('/', adminstratorRoutes);
-app.use('/', adminLoginRoutes)
+app.use('/', adminLoginRoutes);
+app.use('/', babyRegisterRoutes);
 
 
 

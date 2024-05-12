@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body id="body">
+
+    <div class="container-fluid">
+        <div class="form" id="main">
+            <div class="card-body m-auto w-50">
+
+                <form action="#" method="POST">
+                    <h1 style="text-align: center;">Baby Registration</h1>
+
+                    <div class="mb-4">
+                        <label for="name">Name</label>
+                        <input type="text" name="fullName" class="form-control" aria-label="name">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" class="form-control" aria-label="age">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="location">Location</label>
+                        <input type="text" name="location" class="form-control" aria-label="location">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="gaurdian">Gaurdian</label>
+                        <input type="text" name="gaurdian" class="form-control" aria-label="gaurdian">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="parentsName">Parents Name</label>
+                        <input type="text" name="parentsName" class="form-control" aria-label="parentsName">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="periodOfStay">Period of Stay</label>
+                        <input type="text" name="periodOfStay" class="form-control" aria-label="periodOfStay">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="fees">Fee</label>
+                        <input type="text" name="fee" class="form-control" aria-label="fee">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="babyNumber">Baby Number</label>
+                        <input type="text" name="babyNumber" class="form-control" aria-label="babyNumber">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="time">Time of arrival</label>
+                        <input type="datetime-local" name="timeOfArrival" class="form-control" aria-label="timeOfArrival">
+                    </div> 
+
+                    <div class="mb-4">
+                        <label for="gender">Gender:</label>
+                        <select name="gender" type="text">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 col-auto" style="text-align: center;">
+                        
+                        <button class="btn btn-primary mb-3" type="submit">Register</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
