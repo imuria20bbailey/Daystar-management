@@ -1,0 +1,64 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Sitter Registration
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65' crossorigin='anonymous')
+  link(rel='stylesheet' href='/public/css/style.css')
+.container-fluid
+  #main.form
+    .card-body.m-auto.w-50
+      form(action='/add-sitter' method='POST')
+        h1(style='text-align: center;') Sitter Registration
+        .row
+            .col-md-6.mb-6
+                label(for='sitterNumber') Sitter Number
+                input.form-control(type='text' name='sitterNumber' aria-label='sitterNumber')
+
+            .col-md-6.mb-4
+                label(for='nin') NIN
+                input.form-control(type='text' name='nin' aria-label='nin')
+
+            .mb-4.col-md-6
+                label(for='name') Name
+                input.form-control(type='text' name='fullName' aria-label='name')
+
+            .mb-4.col-md-6
+                label(for='contact') Telephone Number
+                input.form-control(type='text' name='contact' aria-label='contact')
+
+            .mb-4.col-md-6
+                label(for='dateOfBirth') Date of Birth
+                input.form-control(type='date' name='dateOfBirth' aria-label='dateOfBirth')
+
+            .mb-4.col-md-6
+                label(for='location') Location
+                input.form-control(type='text' name='location' aria-label='location')
+
+            .mb-4.col-md-6
+                label(for='nextOfKin') Next of Kin
+                input.form-control(type='text' name='nextOfKin' aria-label='nextOfKin')
+
+            .mb-4.col-md-6
+                label(for='referance') Recommenders Name
+                input.form-control(type='text' name='referance' aria-label='referance')
+        
+            .mb-4.col-md-6
+                label(for='levelOfEducation') Level of education
+                input.form-control(type='text' name='levelOfEducation' aria-label='levelOfEducation')
+                
+            .mb-4.col-md-6
+                label(for='gender') Gender:
+                select.form-select(name='gender')
+                    option(value='male') Male
+                    option(value='female') Female
+
+            .mb-4.col-md-6
+                label(for='religion') Religion:
+                select.form-select(name='religion')
+                    option(value='christian') Christian
+                    option(value='islam') Islam
+
+            .mb-4.col-auto(style='text-align: center;')
+            button.btn.btn-primary.mb-3(type='submit') Register
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4' crossorigin='anonymous')

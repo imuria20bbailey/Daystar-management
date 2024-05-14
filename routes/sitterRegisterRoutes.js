@@ -5,21 +5,21 @@ const express = require('express');
 const router = express.Router();
 
 //importing the model name
-const Baby = require('../models/BabyRegistration');
+const Sitter = require('../models/sitterRegistration');
 
 //creating routes to get the form
-router.get('/baby-register', (req, res)=>{
-    res.render('babyData/baby-registration');
+router.get('/new-sitter', (req, res)=>{
+    res.render('sitterData/sitter-registration');
     
 });
 
 //creating post route
-router.post('/baby-register', async(req, res)=>{
+router.post('/add-sitter', async(req, res)=>{
     try {
-        const baby = new Baby(req, res);
-        await baby.save();
-        // console.log(req.body);
-        res.render('babyData/baby-registration')
+        const sitter = new Sitter(req, res);
+        await sitter.save();
+        console.log(req.body);
+        res.render('sitterData/sitter-registration')
        
     } catch (error) { console.log(error);
         

@@ -24,14 +24,16 @@ const port = process.env.port || 3000  // listening to port
 const adminstratorRoutes = require('./routes/adminstrationRoutes');
 const adminLoginRoutes = require('./routes/adminLoginRoutes');
 const babyRegisterRoutes = require('./routes/babyRegisterRoutes')
+const sitterRegisterRoutes = require('./routes/sitterRegisterRoutes')
+
 
 //instantiations
 const app = express();
 
 //configurations
 mongoose.connect(process.env.DATABASE,{
- useNewUrlParser: true,
- useUnifiedTopology: true,
+ //useNewUrlParser: true,
+ //useUnifiedTopology: true,
 });
 
 mongoose.connection
@@ -68,7 +70,7 @@ passport.deserializeUser(Adminstrator.deserializeUser()); //when you log out, th
 app.use('/', adminstratorRoutes);
 app.use('/', adminLoginRoutes);
 app.use('/', babyRegisterRoutes);
-
+app.use('/', sitterRegisterRoutes);
 
 
 //for invalid routes

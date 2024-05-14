@@ -5,48 +5,53 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //using the functions to build data structure
-const babyRegistrationSchema = new Schema({
-    fullName:{
+const sitterRegistrationSchema = new Schema({
+    sitterNumber:{
        type: String,
         trim: true
     },
 
-    age:{
-        type: Number,
+    nin:{
+        type: String,
+        trim: true
         
+     },
+
+     fullName:{
+        type: String,
+        trim: true
+        
+     },
+
+     contact:{
+        type: String,
+        trim: true
+        
+     },
+
+     dateOfBirth:{
+        type: String,
+        trim: true
+         
      },
 
      location:{
         type: String,
-        
-     },
-
-     guardian:{
-        type: String,
-        
-     },
-
-     parentsName:{
-        type: String,
+        trim: true
          
      },
 
-     periodOfStay:{
-        type: String,
-         
-     },
-
-     fee:{
+     nextOfKin:{
         type: String,
          trim: true
      },
 
-     babyNumber:{
+     referance:{
         type: String,
          trim: true
      },
 
-     timeOfArrival:{
+     levelOfEducation:{
         type: String,
         default:Date.now,
          trim: true
@@ -54,13 +59,19 @@ const babyRegistrationSchema = new Schema({
 
      gender: {
         type: String,
-        
-
+        trim: true,
         enum: ["Male", "Female"]
 
-    }
+    },
+
+    religion: {
+      type: String,
+      enum: ["Christian", "Islam"]
+
+  },
+
 
 });
 
 //exporting our modules
-module.exports = mongoose.model('Baby', babyRegistrationSchema);
+module.exports = mongoose.model('Sitter', sitterRegistrationSchema);
