@@ -68,8 +68,14 @@ const sitterRegistrationSchema = new Schema({
       type: String,
       enum: ["Christian", "Islam"]
 
-  },
+     },
 
+   sitterStatus: {
+     type: String,
+     default: "Available",
+     enum: ["Available", "Busy", "Absent"]
+
+    }
 
 });
 

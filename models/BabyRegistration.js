@@ -13,26 +13,31 @@ const babyRegistrationSchema = new Schema({
 
     age:{
         type: Number,
+        trim: true
         
      },
 
      location:{
         type: String,
+        trim: true
         
      },
 
      guardian:{
         type: String,
+        trim: true
         
      },
 
      parentsName:{
         type: String,
+        trim: true
          
      },
 
      periodOfStay:{
         type: String,
+        trim: true
          
      },
 
@@ -54,13 +59,45 @@ const babyRegistrationSchema = new Schema({
 
      gender: {
         type: String,
-        
-
         enum: ["Male", "Female"]
 
-    }
+     },
+
+     sitter_id: {
+      type: String,
+      trim:true
+
+   },
+
+   clockoutTime: {
+      type: Date,
+      default:null,
+       trim: true
+
+   },
+
+   babyStatus: {
+      type: String,
+      default: "clocked-in",
+      enum: ["clocked-in", "clocked-out"]
+   },
+
+   takenBy: {
+      type: String,
+      default: null,
+      trim:true
+     
+   },
+
+   comment: {
+      type: String,
+      default: null,
+      trim:true
+
+   }
 
 });
+
 
 //exporting our modules
 module.exports = mongoose.model('Baby', babyRegistrationSchema);

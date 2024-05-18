@@ -8,40 +8,59 @@ head
 .container-fluid
   #main.form
     .card-body.m-auto.w-50
-      form(action='/baby-register' method='POST')
+      form(action='/add-baby' method='POST')
         h1(style='text-align: center;') Baby Registration
-        .mb-4
-          label(for='name') Name
-          input.form-control(type='text' name='fullName' aria-label='name')
-        .mb-4
-          label(for='age') Age
-          input.form-control(type='number' name='age' aria-label='age')
-        .mb-4
-          label(for='location') Location
-          input.form-control(type='text' name='location' aria-label='location')
-        .mb-4
-          label(for='guardian') Guardian
-          input.form-control(type='text' name='guardian' aria-label='guardian')
-        .mb-4
-          label(for='parentsName') Parents Name
-          input.form-control(type='text' name='parentsName' aria-label='parentsName')
-        .mb-4
-          label(for='periodOfStay') Period of Stay
-          input.form-control(type='text' name='periodOfStay' aria-label='periodOfStay')
-        .mb-4
-          label(for='fees') Fee
-          input.form-control(type='text' name='fee' aria-label='fee')
-        .mb-4
-          label(for='babyNumber') Baby Number
-          input.form-control(type='text' name='babyNumber' aria-label='babyNumber')
-        .mb-4
-          label(for='time') Time of arrival
-          input.form-control(type='datetime-local' name='timeOfArrival' aria-label='timeOfArrival')
-        .mb-4
-          label(for='gender') Gender:
-          select(name='gender' type='text')
-            option(value='male') Male
-            option(value='female') Female
+        .row
+          .mb-4.col-md-6
+            label(for='name') Name
+            input.form-control(type='text' name='fullName' aria-label='name')
+            
+          .mb-4.col-md-6
+            label(for='age') Age
+            input.form-control(type='number' name='age' aria-label='age')
+
+          .mb-4.col-md-6
+            label(for='location') Location
+            input.form-control(type='text' name='location' aria-label='location')
+
+          .mb-4.col-md-6
+            label(for='guardian') Guardian
+            input.form-control(type='text' name='guardian' aria-label='guardian')
+
+          .mb-4.col-md-6
+            label(for='parentsName') Parents Name
+            input.form-control(type='text' name='parentsName' aria-label='parentsName')
+
+          .mb-4.col-md-6
+            label(for='periodOfStay') Period of Stay
+            input.form-control(type='text' name='periodOfStay' aria-label='periodOfStay')
+
+          .mb-4.col-md-6
+            label(for='fees') Fee
+            input.form-control(type='text' name='fee' aria-label='fee')
+
+          .mb-4.col-md-6
+            label(for='babyNumber') Baby Number
+            input.form-control(type='text' name='babyNumber' aria-label='babyNumber')
+
+          .mb-4.col-md-6
+            label(for='time') Time of arrival
+            input.form-control(type='datetime-local' name='timeOfArrival' aria-label='timeOfArrival')
+
+          .mb-4.col-md-6
+            label(for='gender') Gender:
+            select.form-select(name='gender' type='text')
+              option(value='Male') Male
+              option(value='Female') Female
+
+          .mb-4.col-md-6
+            label(for='gender') Select Baby Sitter:
+            - const baby_sitters = sitters || {}
+            select.form-select(id="sitter_id" name='sitter_id')
+                each sitter in baby_sitters
+                    option(value=sitter._id  #{sitter.select}) #{sitter.fullName}
+
+
         .mb-4.col-auto(style='text-align: center;')
           button.btn.btn-primary.mb-3(type='submit') Register
 script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4' crossorigin='anonymous')

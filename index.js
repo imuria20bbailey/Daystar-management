@@ -14,6 +14,9 @@ require('dotenv').config();
 
 //import register model with user details
 const Adminstrator = require('./models/AdminRegister');
+const Baby = require('./models/BabyRegistration');
+const Sitter = require('./models/sitterRegistration');
+
 
 
 
@@ -23,8 +26,9 @@ const port = process.env.port || 3000  // listening to port
 //importing routes
 const adminstratorRoutes = require('./routes/adminstrationRoutes');
 const adminLoginRoutes = require('./routes/adminLoginRoutes');
-const babyRegisterRoutes = require('./routes/babyRegisterRoutes')
-const sitterRegisterRoutes = require('./routes/sitterRegisterRoutes')
+const babyRoutes = require('./routes/babyRoutes');
+const sitterRoutes = require('./routes/sitterRoutes');
+
 
 
 //instantiations
@@ -69,8 +73,9 @@ passport.deserializeUser(Adminstrator.deserializeUser()); //when you log out, th
 //use imported routes
 app.use('/', adminstratorRoutes);
 app.use('/', adminLoginRoutes);
-app.use('/', babyRegisterRoutes);
-app.use('/', sitterRegisterRoutes);
+app.use('/', babyRoutes);
+app.use('/', sitterRoutes);
+
 
 
 //for invalid routes
