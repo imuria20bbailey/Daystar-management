@@ -80,7 +80,7 @@ app.use('/', sitterRoutes);
 
 //for invalid routes
 app.get('*', (req, res) => {
-    res.send('400! This is invalid URL.');
+    res.render('400');
 });
 //boostrapping the server
 app.listen(port, () => console.log(`listening on port ${port}`)); 

@@ -70,12 +70,18 @@ const sitterRegistrationSchema = new Schema({
 
      },
 
+   numberOfBabies: {
+      type: Number,
+      default: 0
+   },
+
    sitterStatus: {
      type: String,
      default: "Available",
      enum: ["Available", "Busy", "Absent"]
 
     }
+
 
 });
 

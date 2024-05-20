@@ -1,108 +1,108 @@
-//introduce express /frame work for backend
 const express = require('express');
-
-//accessing the router function in express
 const router = express.Router();
+const mongoose = require('mongoose');
 
-//importing the model name
 const Baby = require('../models/BabyRegistration');
 const Sitter = require('../models/sitterRegistration');
 
-
-//creating routes to get the form
-router.get('/new-baby', (req, res)=>{
-    //res.render('babyData/baby-registration');
-
+// Route to get the form for registering a new baby
+router.get('/new-baby', (req, res) => {
     Sitter.find({ sitterStatus: "Available" })
-
-    .then((sitters) => {
-    console.log(sitters);
-    res.render('babyData/baby-registration', { title: 'Baby Clock-in Page', sitters });
-    })
-    .catch(() => { 
-        res.send('Sorry! Something went wrong.'); 
-    });
-    
+        .then(sitters => {
+            res.render('babyData/baby-registration', { title: 'Baby Clock-in Page', sitters });
+        })
+        .catch(() => {
+            res.send('Sorry! Something went wrong.');
+        });
 });
 
-
-
-//creating post route
-router.post('/add-baby', async(req, res)=>{
+// Route to add a new baby
+router.post('/add-baby', async (req, res) => {
     try {
         const baby = new Baby(req.body);
         await baby.save();
-        console.log(req.body);
-        // res.render('babyData/registered');
-        res.send('Baby registered successfully!')
-       
-    } catch (error) { console.log(error);
-        
+        res.send('Baby registered successfully!');
+    } catch (error) {
+        console.log(error);
+        res.send('Failed to register baby.');
     }
 });
 
-
-//creating routes to view all babies
-router.get('/babies', (req, res)=>{
-
+// Route to view all babies
+router.get('/babies', (req, res) => {
     Baby.find()
-
-    .then((babies) => {
-    console.log(babies);
-    res.render('babyData/registeredBabies', { title: 'Babies Page', babies });
-    })
-    .catch(() => { 
-        res.send('Sorry! Something went wrong.'); 
-    });
-    
+        .then(babies => {
+            res.render('babyData/registered-babies', { title: 'Babies Page', babies });
+        })
+        .catch(() => {
+            res.send('Sorry! Something went wrong.');
+        });
 });
 
- //creating routes to get the form
-router.get('/baby-clockout', (req, res)=>{
-    //res.render('babyData/baby-registration');
-
+// Route to get the form for clocking out a baby
+router.get('/baby-clockout', (req, res) => {
     Baby.find({ babyStatus: "clocked-in" })
-
-    .then((babyData) => {
-    // console.log(babyData);
-    res.render('babyData/baby-clockout', { title: 'Baby Clock-out Page', babyData });
-    })
-    .catch(() => { 
-        res.send('Sorry! Something went wrong.'); 
-    });
-    
+        .then(babyData => {
+            res.render('babyData/baby-clockout', { title: 'Baby Clock-out Page', babyData });
+        })
+        .catch(() => {
+            res.send('Sorry! Something went wrong.');
+        });
 });
 
-
-//clocking out route
-router.post('/add-baby-clockout', async(req, res)=>{
+// Route to clock out a baby
+router.post('/add-baby-clockout', async (req, res) => {
     try {
-        // const baby = new Baby(req.body);
-        // await baby.save();
+        const babyId = req.body.baby_id;
+        if (!mongoose.Types.ObjectId.isValid(babyId)) {
+            return res.status(400).send('Invalid baby ID.');
+        }
 
-        console.log(req.body.baby_id);
-        const baby_id = { fullName: req.body.baby_id };
-        const baby_updates = { $set: { takenBy: req.body.takenBy, clockoutTime: req.body.clockoutTime, comment: req.body.comment} };
-        Baby.updateOne(baby_id, baby_updates);
-        
-        console.log(req.body);
-        // res.render('babyData/registered');
-        res.send('Baby clockout successfully!')
-        
+        const updates = {
+            takenBy: req.body.takenBy,
+            clockoutTime: req.body.clockoutTime,
+            comment: req.body.comment,
+            babyStatus: 'clocked-out'
+        };
 
-
-
-       
-    } catch (error) { console.log(error);
-        
+        await Baby.findByIdAndUpdate(babyId, updates);
+        res.send('Baby clocked out successfully!');
+    } catch (error) {
+        console.log(error);
+        res.send('Failed to clock out baby.');
     }
 });
 
-//Updating baby
+// Route to get sitters and their respective payouts
+router.get('/sitter-payouts', async (req, res) => {
+    try {
+        // Find all babies and populate their sitters
+        const babies = await Baby.find().populate('sitter_id').exec();
+
+        // Calculate payouts
+        const sitterPayouts = {};
+        babies.forEach(baby => {
+            if (baby.sitter_id && baby.babyStatus === 'clocked-out') {
+                const sitterId = baby.sitter_id._id;
+                const sitterName = baby.sitter_id.fullName;
+
+                if (!sitterPayouts[sitterId]) {
+                    sitterPayouts[sitterId] = { sitterName, babyCount: 0, payout: 0 };
+                }
+
+                sitterPayouts[sitterId].babyCount += 1;
+                sitterPayouts[sitterId].payout += 3000; // 3000 UGX per baby
+            }
+        });
+
+        res.render('sitterData/sitter-payouts', { title: 'Sitter Payouts', sitterPayouts });
+    } catch (error) {
+        console.error(error);
+        res.send('Sorry! Something went wrong.');
+    }
+});
 
 
 
-
-//exporting
+// Exporting the router
 module.exports = router;
-

@@ -64,7 +64,7 @@ const babyRegistrationSchema = new Schema({
      },
 
      sitter_id: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId, ref: 'Sitter',
       trim:true
 
    },

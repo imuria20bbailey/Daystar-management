@@ -28,6 +28,18 @@ router.post('/add-sitter', async(req, res)=>{
     }
 });
 
+// fetch all sitters
+router.get('/sitters', async (req, res) => {
+    try {
+        const sitters = await Sitter.find();
+        res.render('sitterData/registered-sitters', { sitters });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 
