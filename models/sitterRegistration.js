@@ -75,6 +75,12 @@ const sitterRegistrationSchema = new Schema({
       default: 0
    },
 
+   paid: {
+      type: Boolean,
+      default: false
+    },
+
+   
    sitterStatus: {
      type: String,
      default: "Available",

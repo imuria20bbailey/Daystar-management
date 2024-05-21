@@ -37,13 +37,15 @@ const babyRegistrationSchema = new Schema({
 
      periodOfStay:{
         type: String,
-        trim: true
+        enum: ['Full Day', 'Half Day']
+        
          
      },
 
      fee:{
-        type: String,
-         trim: true
+        type: Number,
+        enum: ['15000', '10000']
+         
      },
 
      babyNumber:{
@@ -68,6 +70,9 @@ const babyRegistrationSchema = new Schema({
       trim:true
 
    },
+
+   
+   
 
    clockoutTime: {
       type: Date,

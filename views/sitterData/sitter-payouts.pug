@@ -6,6 +6,7 @@ html
     title=`${title}`
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65' crossorigin='anonymous')
     link(rel='stylesheet' href='/public/css/style.css')
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css", integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd", crossorigin="anonymous")
   body
     .container(style="padding:20px;")
       .card.card-body
@@ -13,13 +14,20 @@ html
         table.table.table-bordered
           thead
             tr
+              th sitter No
               th Sitter Name
               th Babies Attended To
               th Payout (UGX)
+              th Action
+
           tbody
-            each sitterId, sitter in sitterPayouts
+            each sitter in sitters
               tr
-                td= sitter.sitterName
-                td= sitter.babyCount
-                td= sitter.payout
+                td= sitter.sitterNumber
+                td= sitter.fullName
+                td= sitter.numberOfBabies
+                td= sitter.numberOfBabies*3000
+                td  
+                  a(href=`/confirm-sitter-payout/${sitter._id}` title="Confirm Payment" data-id=`${sitter._id}`).btn.btn.sm.btn-success Pay 
+                    i.bi.bi-cash-coin                       
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4' crossorigin='anonymous')

@@ -9,8 +9,11 @@ head
 
     main.container(role="main" style="padding: 70px;")
 
-        
-        a(href="/new-baby").btn.btn.sm.btn-info Add New
+        .row
+            .col-md-2
+                a(href="/new-baby").btn.btn.sm.btn-info Add New
+            .col-md
+                a(href="/baby-clockout").btn.btn.sm.btn-success Clock-out
                 
         div.container.mt-4
             h1.text-center.mb-4.fw-bold.text-secondary LIST OF ALL BABIES
@@ -27,6 +30,8 @@ head
                             th Gender
                             th Age
                             th Location
+                            th Period of Stay
+                            th fee
                             th Status
                             th Actions
                     tbody
@@ -39,6 +44,8 @@ head
                             td= baby.gender
                             td= baby.age
                             td= baby.location
+                            td= baby.periodOfStay
+                            td= baby.fee
                             td= baby.babyStatus
                             td
                                 a(href=`/#/${baby._id}` title="View Info" data-id=`${baby._id}`).btn.btn.sm.btn-secondary

@@ -28,6 +28,9 @@ const adminstratorRoutes = require('./routes/adminstrationRoutes');
 const adminLoginRoutes = require('./routes/adminLoginRoutes');
 const babyRoutes = require('./routes/babyRoutes');
 const sitterRoutes = require('./routes/sitterRoutes');
+const procureItems =require('./routes/procurerItemRoutes');
+const purchaseItem = require('./routes/purchaseItemRoutes');
+const dashboard = require('./routes/dashboardRoutes');
 
 
 
@@ -54,7 +57,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views')); //specify the directorate where the views are found
 
 //middleware/ helps pick information to post
-app.use(express.static(path.join(__dirname, 'dashboard')))  //set directorate for static files
+app.use(express.static(path.join(__dirname, 'public')))  //set directorate for static files
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -75,6 +78,9 @@ app.use('/', adminstratorRoutes);
 app.use('/', adminLoginRoutes);
 app.use('/', babyRoutes);
 app.use('/', sitterRoutes);
+app.use('/', procureItems);
+app.use('/', purchaseItem);
+app.use('/', dashboard);
 
 
 

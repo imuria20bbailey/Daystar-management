@@ -1,0 +1,63 @@
+doctype html
+html
+  head
+    title Purchase Items
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65' crossorigin='anonymous')
+  body
+    .container(style="padding:20px;")
+      .row
+        #form-section.col-md-6
+          .card-body.m-auto.w-50
+            h2(style='text-align: center;') Purchase Item
+            form(action="/add-purchase" method="post")
+              .row
+                .mb-4.col-md-12
+                  label(for="baby_id") Baby Name:
+                  - const all_babies = babies || {}
+                  select.form-select(id="baby_id" name='baby_id')
+                    each baby in all_babies
+                      option(value=baby._id #{baby.select}) #{baby.fullName}
+
+                .mb-4.col-md-12
+                  label(for="item_id") Item:
+                  - const all_items = items || {}
+                  select.form-select(id="item_id" name='item_id')
+                    each item in all_items
+                      option(value=item._id #{item.select}) #{item.name}
+
+                .mb-4.col-md-12
+                  label(for="quantity") Quantity:
+                  input.form-control(type="text" name="quantity" required)
+
+                .mb-4.col-md-12
+                  label(for="purchaseTime") Purchase Time:
+                  input.form-control(type="datetime-local" name="purchaseTime" required)
+
+                .mb-4.col-auto(style='text-align: center;')
+                  button.btn.btn-primary.mb-3(type="submit") Add Item
+
+        #table-section.col-md-6
+          h2(style='text-align: center;') Registered Items
+          if purchases && purchases.length
+            table.table.table-striped
+              thead
+                tr
+                  th Baby Name
+                  th Item
+                  th Quantity
+                  th Price 
+                  th Total Amount
+                  th Purchase Date
+              tbody
+                each purchase in purchases
+                  tr
+                    td= purchase.baby_details.fullName
+                    td= purchase.item_details.name
+                    td= purchase.quantity
+                    td= purchase.item_details.price
+                    td= purchase.quantity*purchase.item_details.price
+                    td= purchase.formattedPurchaseTime
+          else
+            p.alert.alert-warning.text-center.fs-5 No records found...
+
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4' crossorigin='anonymous')

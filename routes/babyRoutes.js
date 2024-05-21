@@ -7,7 +7,7 @@ const Sitter = require('../models/sitterRegistration');
 
 // Route to get the form for registering a new baby
 router.get('/new-baby', (req, res) => {
-    Sitter.find({ sitterStatus: "Available" })
+    Sitter.find()
         .then(sitters => {
             res.render('babyData/baby-registration', { title: 'Baby Clock-in Page', sitters });
         })
@@ -21,13 +21,46 @@ router.post('/add-baby', async (req, res) => {
     try {
         const baby = new Baby(req.body);
         await baby.save();
-        res.send('Baby registered successfully!');
+
+        const sitter_id = req.body.sitter_id;
+        if (!mongoose.Types.ObjectId.isValid(sitter_id)) {
+            return res.status(400).send('Invalid sitter ID.');
+        }
+
+       
+       // Find the sitter by ID
+       const currentBabies = await Sitter.findOne({ _id: new mongoose.Types.ObjectId(sitter_id) });
+
+       if (currentBabies) {
+           // Increment the number of babies
+           const current_babies = currentBabies.numberOfBabies;
+
+           const updates = {
+               sitterStatus: 'Busy',
+               numberOfBabies: current_babies + 1 // Increment the number of babies
+           };
+
+           // Update the sitter with the new number of babies and status
+           await Sitter.findByIdAndUpdate(sitter_id, updates);
+
+           // Log the updated number of babies
+           //console.log(updates.numberOfBabies);
+
+           // Send a success response
+           res.send('Baby registered successfully!');
+       } else {
+           // If the sitter is not found
+           console.log("Sitter not found");
+           res.status(404).send('Sitter not found');
+       }
     } catch (error) {
-        console.log(error);
-        res.send('Failed to register baby.');
+        // Handle any errors that occurred during the process
+        console.error("Error fetching or updating sitter:", error);
+        res.status(500).send('Failed to register baby.');
     }
 });
 
+        
 // Route to view all babies
 router.get('/babies', (req, res) => {
     Baby.find()
@@ -72,36 +105,6 @@ router.post('/add-baby-clockout', async (req, res) => {
         res.send('Failed to clock out baby.');
     }
 });
-
-// Route to get sitters and their respective payouts
-router.get('/sitter-payouts', async (req, res) => {
-    try {
-        // Find all babies and populate their sitters
-        const babies = await Baby.find().populate('sitter_id').exec();
-
-        // Calculate payouts
-        const sitterPayouts = {};
-        babies.forEach(baby => {
-            if (baby.sitter_id && baby.babyStatus === 'clocked-out') {
-                const sitterId = baby.sitter_id._id;
-                const sitterName = baby.sitter_id.fullName;
-
-                if (!sitterPayouts[sitterId]) {
-                    sitterPayouts[sitterId] = { sitterName, babyCount: 0, payout: 0 };
-                }
-
-                sitterPayouts[sitterId].babyCount += 1;
-                sitterPayouts[sitterId].payout += 3000; // 3000 UGX per baby
-            }
-        });
-
-        res.render('sitterData/sitter-payouts', { title: 'Sitter Payouts', sitterPayouts });
-    } catch (error) {
-        console.error(error);
-        res.send('Sorry! Something went wrong.');
-    }
-});
-
 
 
 // Exporting the router

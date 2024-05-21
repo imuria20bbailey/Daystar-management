@@ -8,7 +8,11 @@ html
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css", integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd", crossorigin="anonymous")
   body
     main.container(role="main" style="padding: 70px;")
-      a(href="/new-sitter").btn.btn.sm.btn-info Add New
+      .row
+        .col-md-2
+          a(href="/new-sitter").btn.btn.sm.btn-info Add New Sitter
+        .col-md-2
+          a(href="/available-sitters").btn.btn.sm.btn-success Pay Sitters 
 
       div.container.mt-4
         h1.text-center.mb-4.fw-bold.text-secondary LIST OF ALL SITTERS

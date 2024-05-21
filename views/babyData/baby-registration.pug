@@ -33,11 +33,17 @@ head
 
           .mb-4.col-md-6
             label(for='periodOfStay') Period of Stay
-            input.form-control(type='text' name='periodOfStay' aria-label='periodOfStay')
+            select#course.form-select(name='periodOfStay' type='text')
+              option(value='') --select--
+              option(value='Full Day') Full Day 
+              option(value='Half Day') Haft Day
 
           .mb-4.col-md-6
             label(for='fees') Fee
-            input.form-control(type='text' name='fee' aria-label='fee')
+            select#course.form-select(name='fees' type='number')
+              option(value='') --select--
+              option(value='15000') 15000
+              option(value='10000') 10000
 
           .mb-4.col-md-6
             label(for='babyNumber') Baby Number
@@ -50,6 +56,7 @@ head
           .mb-4.col-md-6
             label(for='gender') Gender:
             select.form-select(name='gender' type='text')
+              option(value='') --select--
               option(value='Male') Male
               option(value='Female') Female
 
@@ -58,6 +65,7 @@ head
             - const baby_sitters = sitters || {}
             select.form-select(id="sitter_id" name='sitter_id')
                 each sitter in baby_sitters
+                    option(value='') --select--
                     option(value=sitter._id  #{sitter.select}) #{sitter.fullName}
 
 
